@@ -12,6 +12,7 @@ Home page
                 <th scope="col">ID</th>
                 <th scope="col">Description</th>
                 <th scope="col">Status</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,9 @@ Home page
                     <td>{{task.id}}</td>
                     <td>{{task.description}}</td>
                     <td>{{task.status}}</td>
+                    <td>
+                        <button class="btn btn-outline bt-info">InProgress</button>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
