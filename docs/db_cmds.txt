@@ -1,0 +1,23 @@
+# go to the home app directory and open a python shell
+# sqlitebrowser.org
+
+from app import db
+from app import TaskItem
+
+db.create_all()
+
+task1 = TaskItem(description='Buy orange juice',status='NotStarted')
+task2 = TaskItem(description='Study Flask',status='InProgress')
+task3 = TaskItem(description='Study Python',status='Done')
+
+db.session.add(task1)
+db.session.add(task2)
+db.session.add(task3)
+db.session.commit()
+
+TaskItem.query.all()
+
+for item in TaskItem.query.filter_by(status='Done'):
+    item.description
+
+
