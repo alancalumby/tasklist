@@ -1,23 +1,33 @@
 # go to the home app directory and open a python shell
 # sqlitebrowser.org
 
-from app import db
-from app import TaskItem
+from tasklist.models import db,User, TaskItem
 
 db.create_all()
+#db.drop_all()
 
-task1 = TaskItem(description='Buy orange juice',status='NotStarted')
-task2 = TaskItem(description='Study Flask',status='InProgress')
-task3 = TaskItem(description='Study Python',status='Done')
+user1 = User(username='alan',email='a@a.com',name='alan calumby',password_hash='123456')
+user2 = User(username='bernardo',email='b@b.com',name='bernardo calumby',password_hash='123456')
+
+db.session.add(user1)
+db.session.add(user2)
+
+task1 = TaskItem(description='Buy orange juice',status='NotStarted',owner=2)
+task2 = TaskItem(description='Study Flask',status='InProgress',owner=1)
+task3 = TaskItem(description='Study Python',status='Done',owner=1)
 
 db.session.add(task1)
 db.session.add(task2)
 db.session.add(task3)
 db.session.commit()
 
+User.query.all()
 TaskItem.query.all()
 
-for item in TaskItem.query.filter_by(status='Done'):
-    item.description
+User.query.filter_by(username='alan').first()
+
+for item in TaskItem.query.filter_by(owner=2):
+    f'{item.description} - {item.status} - {item.owned_user}'
 
 
+db.drop_all()
