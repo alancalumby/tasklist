@@ -15,13 +15,13 @@ Home page
             </tr>
         </thead>
         <tbody>
-            {% for task in tasks: %}
+            {% for task in tasks %}
                 <tr>
                     <td>{{task.id}}</td>
                     <td>{{task.description}}</td>
                     <td>{{task.status}}</td>
                 </tr>
-            {% endfor%}
+            {% endfor %}
         </tbody>
      </table>
 {% endblock %}
