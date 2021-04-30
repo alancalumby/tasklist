@@ -8,6 +8,7 @@ Register a new user
 <body class="text-center">
     <div class="container">
         <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 font-weight-normal">
                 Create a new account
             </h1>
@@ -27,7 +28,7 @@ Register a new user
             {{form.password_confirmation(class="form-control", placeholder="Confirm your password")}}
 
             <br>
-            
+
             {{ form.submit(class="btn btn-lg btn-block btn-primary")}}
         </form>
     </div>   
