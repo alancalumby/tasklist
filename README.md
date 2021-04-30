@@ -9,11 +9,12 @@ Here we have a very interesting tutorial that helped me to develop this app: htt
 
 
 Necessary packages:
-
-python -m pip install email_validator
-python -m pip install flask
-python -m pip install flask_bcrypt
-python -m pip install flask_login
-python -m pip install flask_sqlalchemy
-python -m pip install flask-wtf
-python -m pip install wtforms
+<ul>
+  <li>python -m pip install email_validator</li>
+  <li>python -m pip install flask</li>
+  <li>python -m pip install flask_bcrypt</li>
+  <li>python -m pip install flask_login</li>
+  <li>python -m pip install flask_sqlalchemy</li>
+  <li>python -m pip install flask-wtf</li>
+  <li>python -m pip install wtforms</li>
+</ul>
