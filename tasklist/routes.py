@@ -1,7 +1,7 @@
 from tasklist import app
 from flask import render_template, redirect, url_for, flash
 from tasklist.models import TaskItem, User
-from tasklist.forms import RegisterForm
+from tasklist.forms import RegisterForm, LoginForm
 from tasklist import db
 
 @app.route('/')
@@ -20,7 +20,7 @@ def register_page():
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               email=form.email.data,
-                              password_hash=form.password.data)
+                              password=form.password.data)
         db.session.add(user_to_create)
         db.session.commit()
         return redirect(url_for('home_page'))
@@ -30,3 +30,8 @@ def register_page():
             flash(f'Error: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
+
+@app.route('/login',methods=['GET','POST'])
+def login_page():
+    form = LoginForm()
+    return render_template('login.html',form=form)
