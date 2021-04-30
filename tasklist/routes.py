@@ -51,3 +51,8 @@ def logout_page():
     logout_user()
     flash(f'You have benn logged out. See you soon', category='info')
     return redirect(url_for('home_page'))
+
+@app.route('/tasks')
+def tasks_page():
+    tasks = TaskItem.query.all()
+    return render_template('tasks.html', tasks = tasks)
