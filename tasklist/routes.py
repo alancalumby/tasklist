@@ -1,5 +1,5 @@
 from tasklist import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from tasklist.models import TaskItem, User
 from tasklist.forms import RegisterForm
 from tasklist import db
@@ -27,6 +27,6 @@ def register_page():
 
     if form.errors != {}: #no errors in validations
         for err_msg in form.errors.values():
-            print(f'Error: {err_msg}')
+            flash(f'Error: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
