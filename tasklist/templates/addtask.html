@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title%}
+Add a new task
+{% endblock %}
+
+{% block content%}
+<body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal">
+                Add a new task
+            </h1>
+
+            <br>
+
+            {{form.description.label()}}
+            {{form.description(class="form-control", placeholder="Input the task's description")}}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-primary")}}
+
+        </form>
+    </div>   
+</body>
+{% endblock %}

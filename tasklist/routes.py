@@ -1,8 +1,8 @@
-from tasklist import app,db,login_mgr
-from flask import render_template, redirect, url_for, flash
+from tasklist import app, db, login_mgr
+from flask import render_template, redirect, url_for, flash, request
 from tasklist.models import TaskItem, User
-from tasklist.forms import RegisterForm, LoginForm
-from flask_login import login_user,logout_user,login_required
+from tasklist.forms import RegisterForm, LoginForm, AddTaskItem
+from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 @app.route('/home')
@@ -43,7 +43,7 @@ def login_page():
         if attempted_user and attempted_user.validate_password(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(f'Success! You are logged in as {attempted_user.username}', category='success')
-            return redirect(url_for('home_page'))
+            return redirect(url_for('tasks_page'))
         else:
             flash('Incorrect login/password. Try again!',category='danger')
     
@@ -58,5 +58,22 @@ def logout_page():
 @app.route('/tasks')
 @login_required
 def tasks_page():
-    tasks = TaskItem.query.all()
+    tasks = TaskItem.query.filter_by(owner = current_user.id)
     return render_template('tasks.html', tasks = tasks)
+
+@app.route('/addtask', methods=['GET','POST'])
+@login_required
+def addtask_page():
+    form = AddTaskItem()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            task_to_create = TaskItem(description=form.description.data, owner=current_user.id,status='NotStarted')
+            db.session.add(task_to_create)
+            db.session.commit()
+            flash(f"Task created successfully for user {current_user.name}", category='success')
+            return redirect(url_for('tasks_page'))
+    if form.errors != {}: #If there are not errors from the validations
+        for err_msg in form.errors.values():
+            flash(f'There was an error while addind this task: {err_msg}', category='danger')
+
+    return render_template('addtask.html', form=form)

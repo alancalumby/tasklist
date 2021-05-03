@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     task_items = db.relationship('TaskItem', backref='owned_user', lazy=True)
 
     def __repr__(self):
-        return f'{self.name}'
+        return f'ID: {self.id} / Name: {self.name} / Username: {self.username}'
 
     @property
     def password(self):
