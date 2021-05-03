@@ -6,11 +6,11 @@ from tasklist.models import db,User, TaskItem
 db.create_all()
 #db.drop_all()
 
-user1 = User(username='alan',email='a@a.com',name='alan calumby',password_hash='123456')
-user2 = User(username='bernardo',email='b@b.com',name='bernardo calumby',password_hash='123456')
+#user1 = User(username='alan',email='a@a.com',name='alan calumby',password_hash='123456')
+#user2 = User(username='bernardo',email='b@b.com',name='bernardo calumby',password_hash='123456')
 
-db.session.add(user1)
-db.session.add(user2)
+#db.session.add(user1)
+#db.session.add(user2)
 
 task1 = TaskItem(description='Buy orange juice',status='NotStarted',owner=2)
 task2 = TaskItem(description='Study Flask',status='InProgress',owner=1)

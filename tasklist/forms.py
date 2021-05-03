@@ -27,7 +27,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label='Go')
 
 class AddTaskItem(FlaskForm):
-    description = StringField(label='Description:', validators=[DataRequired()])
+    description = StringField(label='Description:', validators=[Length(min=2,max=50),DataRequired()])
     status = "NotStarted"
     owner = 1
     submit = SubmitField(label='Go')
