@@ -12,5 +12,7 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
 login_mgr = LoginManager(app)
+login_mgr.login_view = "login_page"
+login_mgr.login_message_category = "info"
 
 from tasklist import routes

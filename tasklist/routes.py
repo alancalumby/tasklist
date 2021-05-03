@@ -2,7 +2,7 @@ from tasklist import app,db,login_mgr
 from flask import render_template, redirect, url_for, flash
 from tasklist.models import TaskItem, User
 from tasklist.forms import RegisterForm, LoginForm
-from flask_login import login_user,logout_user
+from flask_login import login_user,logout_user,login_required
 
 @app.route('/')
 @app.route('/home')
@@ -23,6 +23,9 @@ def register_page():
                               password=form.password.data)
         db.session.add(user_to_create)
         db.session.commit()
+        login_user(user_to_create)
+        flash(f'Success! You are logged in as {user_to_create}', category='success')
+        
         return redirect(url_for('home_page'))
 
     if form.errors != {}: #no errors in validations
@@ -53,6 +56,7 @@ def logout_page():
     return redirect(url_for('home_page'))
 
 @app.route('/tasks')
+@login_required
 def tasks_page():
     tasks = TaskItem.query.all()
     return render_template('tasks.html', tasks = tasks)
