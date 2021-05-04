@@ -26,8 +26,11 @@ class LoginForm(FlaskForm):
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Go')
 
-class AddTaskItem(FlaskForm):
+class AddTaskItemForm(FlaskForm):
     description = StringField(label='Description:', validators=[Length(min=2,max=50),DataRequired()])
     status = "NotStarted"
     owner = 1
     submit = SubmitField(label='Go')
+    
+class DeleteTaskItemForm(FlaskForm):
+    submit = SubmitField(label='Yes')

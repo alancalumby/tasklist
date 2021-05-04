@@ -1,7 +1,7 @@
 from tasklist import app, db, login_mgr
 from flask import render_template, redirect, url_for, flash, request
 from tasklist.models import TaskItem, User
-from tasklist.forms import RegisterForm, LoginForm, AddTaskItem
+from tasklist.forms import RegisterForm, LoginForm, AddTaskItemForm, DeleteTaskItemForm
 from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
@@ -55,16 +55,23 @@ def logout_page():
     flash(f'You have benn logged out. See you soon', category='info')
     return redirect(url_for('home_page'))
 
-@app.route('/tasks')
+@app.route('/tasks', methods=['GET','POST'])
 @login_required
 def tasks_page():
+    deletetask_form = DeleteTaskItemForm()
+    if request.method == 'POST':
+        deleted_task = request.form.get('deleted_task')
+        task = TaskItem.query.filter_by(id=deleted_task).first()
+        db.session.delete(task)
+        db.session.commit()
+        flash(f'Task "{task.description}" has been deleted.', category='success')
     tasks = TaskItem.query.filter_by(owner = current_user.id)
-    return render_template('tasks.html', tasks = tasks)
+    return render_template('tasks.html', tasks = tasks, deletetask_form=deletetask_form)
 
 @app.route('/addtask', methods=['GET','POST'])
 @login_required
 def addtask_page():
-    form = AddTaskItem()
+    form = AddTaskItemForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             task_to_create = TaskItem(description=form.description.data, owner=current_user.id,status='NotStarted')

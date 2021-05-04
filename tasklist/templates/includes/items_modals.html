@@ -32,15 +32,14 @@
     </div>
   </div>
   
-  <!-- Purchase Confirm -->
-  <div class="modal fade" id="Modal-PurchaseConfirm-{{ task.id }}"
+  <!-- Delete task -->
+  <div class="modal fade" id="Modal-DeleteTask-{{ task.id }}"
        tabindex="-1"
        aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ModalLabel">
-            <!-- -->
             {{ task.description }}
           </h5>
           <button type="button" class="close"
@@ -49,12 +48,28 @@
           </button>
         </div>
         <div class="modal-body">
+          <form method="POST">
+            {{ deletetask_form.hidden_tag() }}
+            <h4>
+              Do you really want to delete the task "{{ task.description }}" ?
+            </h4>
+            <br>
+            <h6>
+              By clicking Yes the task will be deleted.
+            </h6>
+            <br>
+            <input id="deleted_task" name="deleted_task" type="hidden" value="{{task.id}}">
+            {{ deletetask_form.submit(class="btn btn-outline-success btn-block") }}
+          </form>
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"
-                  data-dismiss="modal">Close
+          <!--<button type="button" class="btn btn-secondary btn-success"
+                  data-dismiss="modal">Yes
           </button>
+          <button type="button" class="btn btn-primary btn-danger"
+                  data-dismiss="modal">No
+          </button>-->
         </div>
       </div>
     </div>
