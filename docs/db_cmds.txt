@@ -28,7 +28,7 @@ User.query.filter_by(username='alan').first()
 
 for item in TaskItem.query.filter_by(owner=2):
     f'{item.description} - {item.status} - {item.owned_user}'
-
+ 
 
 db.drop_all()
 
