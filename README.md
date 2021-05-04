@@ -27,4 +27,4 @@ Here we have a very interesting tutorial that helped me to develop this app: htt
   - Bootstrap
   - Three status availables for each task (NotStarted, InProgress and Done)
     - It allows only the following status flow: NotStarted > InProgress > Done
-  - Tasks deleting
+  - Deleting tasks
