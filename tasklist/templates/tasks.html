@@ -29,10 +29,10 @@
                                 <div class="row">
                                     <div class="col-6">
                                         {% if task.status == 'NotStarted' %}
-                                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#StartTask-{{ task.id }}">Start task</button>
+                                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-ChangeTaskStatus-{{ task.id }}">Start task</button>
                                         {% else %}
                                             {% if task.status == 'InProgress' %}
-                                            <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#FinishTask-{{ task.id }}">Finish task</button>
+                                            <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-ChangeTaskStatus-{{ task.id }}">Finish task</button>
                                             {% endif %}
                                         {% endif %}    
                                     </div>

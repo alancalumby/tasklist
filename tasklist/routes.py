@@ -1,7 +1,7 @@
 from tasklist import app, db, login_mgr
 from flask import render_template, redirect, url_for, flash, request
 from tasklist.models import TaskItem, User
-from tasklist.forms import RegisterForm, LoginForm, AddTaskItemForm, DeleteTaskItemForm
+from tasklist.forms import RegisterForm, LoginForm, AddTaskItemForm, DeleteTaskItemForm, ChangeStatusTaskItemForm
 from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
@@ -20,6 +20,7 @@ def register_page():
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               email=form.email.data,
+                              name=form.name.data,
                               password=form.password.data)
         db.session.add(user_to_create)
         db.session.commit()
@@ -59,14 +60,27 @@ def logout_page():
 @login_required
 def tasks_page():
     deletetask_form = DeleteTaskItemForm()
+    changestatustask_form = ChangeStatusTaskItemForm()
     if request.method == 'POST':
         deleted_task = request.form.get('deleted_task')
-        task = TaskItem.query.filter_by(id=deleted_task).first()
-        db.session.delete(task)
-        db.session.commit()
-        flash(f'Task "{task.description}" has been deleted.', category='success')
+        changedstatus_task = request.form.get('changedstatus_task')
+        if deleted_task:
+            task = TaskItem.query.filter_by(id=deleted_task).first()
+            db.session.delete(task)
+            db.session.commit()
+            flash(f'Task "{task.description}" has been deleted.', category='success')
+        if changedstatus_task:
+            task = TaskItem.query.filter_by(id=changedstatus_task).first()
+            if task.status == 'NotStarted':
+                task.status = 'InProgress'
+            else:
+                if task.status == 'InProgress':
+                    task.status = 'Done'
+            #db.session.update(task)
+            db.session.commit()
+            flash(f'The Status of the Task "{task.description}" has been changed.', category='success')
     tasks = TaskItem.query.filter_by(owner = current_user.id)
-    return render_template('tasks.html', tasks = tasks, deletetask_form=deletetask_form)
+    return render_template('tasks.html', tasks = tasks, deletetask_form=deletetask_form, changestatustask_form=changestatustask_form)
 
 @app.route('/addtask', methods=['GET','POST'])
 @login_required

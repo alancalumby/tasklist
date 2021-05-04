@@ -16,6 +16,7 @@ class RegisterForm(FlaskForm):
             raise ValidationError('E-mail already in use.')
 
     username = StringField(label='User name:', validators=[Length(min=2,max=30),DataRequired()])
+    name = StringField(label='Name:', validators=[Length(min=2,max=50),DataRequired()])
     email = StringField(label='E-mail:', validators=[Email(),DataRequired()])
     password = PasswordField(label='Password:', validators=[Length(min=2,max=60),DataRequired()])
     password_confirmation = PasswordField(label='Confirm your password:', validators=[EqualTo('password'),DataRequired()])
@@ -33,4 +34,7 @@ class AddTaskItemForm(FlaskForm):
     submit = SubmitField(label='Go')
     
 class DeleteTaskItemForm(FlaskForm):
+    submit = SubmitField(label='Yes')
+    
+class ChangeStatusTaskItemForm(FlaskForm):
     submit = SubmitField(label='Yes')

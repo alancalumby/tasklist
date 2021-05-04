@@ -5,7 +5,7 @@
   </style>
   
   <!-- More Info -->
-  <div class="modal fade" id="Modal-MoreInfo-{{ task.id }}"
+  <div class="modal fade" id="Modal-ChangeTaskStatus-{{ task.id }}"
        tabindex="-1"
        aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -13,7 +13,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="ModalLabel">
             <!-- -->
-            {{ task.description }}
+            Task's status change
           </h5>
           <button type="button" class="close"
                   data-dismiss="modal" aria-label="Close">
@@ -21,7 +21,24 @@
           </button>
         </div>
         <div class="modal-body">
-          {{ task.status }}
+          <form method="POST">
+            {{ changestatustask_form.hidden_tag() }}
+            <h4>
+              Do you really want to change the status of the task "{{ task.description }}" ?
+            </h4>
+            <br>
+            <h6>
+              {% if task.status == 'NotStarted' %}
+                By clicking Yes the status of this task will be changed from NotStarted to InProgress.
+              {% endif %}
+              {% if task.status == 'InProgress' %}
+                By clicking Yes the status of this task will be changed from InProgress to Done.
+              {% endif %}
+            </h6>
+            <br>
+            <input id="changedstatus_task" name="changedstatus_task" type="hidden" value="{{task.id}}">
+            {{ changestatustask_form.submit(class="btn btn-outline-success btn-block") }}
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary"
@@ -48,6 +65,7 @@
           </button>
         </div>
         <div class="modal-body">
+
           <form method="POST">
             {{ deletetask_form.hidden_tag() }}
             <h4>
