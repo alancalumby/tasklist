@@ -18,6 +18,7 @@ Here we have a very interesting tutorial that helped me to develop this app: htt
   - `python -m pip install flask-wtf`
   - `python -m pip install unicorn`
   - `python -m pip install wtforms`
+*unicorn for heroku
 
 
 ### Features
