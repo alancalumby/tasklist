@@ -16,7 +16,7 @@ Here we have a very interesting tutorial that helped me to develop this app: htt
   - `python -m pip install flask_login`
   - `python -m pip install flask_sqlalchemy`
   - `python -m pip install flask-wtf`
-  - `python -m pip install unicorn` *unicorn for heroku
+  - `python -m pip install unicorn` *unicorn for heroku deploy
   - `python -m pip install wtforms`
 
 
