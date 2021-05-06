@@ -1,8 +1,8 @@
+email_validator
 flask
+flask_bcrypt
 flask_login
 flask_sqlalchemy
 flask-wtf
 wtforms
-email_validator
-flask_bcrypt
 gunicorn
