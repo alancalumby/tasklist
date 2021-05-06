@@ -1,1 +1,1 @@
-web: gunicorn
+web: ps:scale web=0
